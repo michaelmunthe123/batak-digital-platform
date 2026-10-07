@@ -1,0 +1,21 @@
+# Phase 3 Completion Checklist
+
+- [x] Genealogy dataset/node/edge schema.
+- [x] Genealogy evidence links.
+- [x] Privacy levels and living-person database guard.
+- [x] Same-dataset edge validation trigger.
+- [x] Public recursive genealogy path helper.
+- [x] Fictional tarombo demo.
+- [x] Tarombo visualizer.
+- [x] Partuturan rule engine.
+- [x] Toba pilot rules with institutional provenance.
+- [x] Karo Rakut Sitelu pilot rules with institutional provenance.
+- [x] Relationship Explorer with fail-closed path search.
+- [x] Kinship system / term knowledge entities.
+- [x] Editorial forms for dataset, node, edge, and rule.
+- [x] Phase 3 RLS policies.
+- [x] Reviewer transition RPCs.
+- [x] Unit tests for genealogy, kinship, and relationship engines.
+- [x] Phase 3 E2E coverage source.
+- [x] No public community accounts.
+- [x] No AI inference.

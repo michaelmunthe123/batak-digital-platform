@@ -1,0 +1,21 @@
+# Phase 2 Completion Checklist
+
+- [x] Cultural Map route and accessible interactive point selector
+- [x] Representative-point disclaimer and precision field
+- [x] Map tables + provenance
+- [x] Adat Timeline component
+- [x] Timeline variation/context model + provenance
+- [x] Language variety pages remain distinct from cultural groups
+- [x] Searchable dictionary foundation
+- [x] Dictionary source-link model
+- [x] Rights-aware Media Gallery
+- [x] Media metadata-only mode
+- [x] Improved search with entity-type and source-backed filters
+- [x] Search v2 PostgreSQL RPC
+- [x] Content Completeness Dashboard
+- [x] Completeness SQL view + local fallback
+- [x] Phase 2 pilot sources/entities/data
+- [x] Unit tests for filters/completeness
+- [x] E2E coverage source for Phase 2 routes
+- [x] Sitemap/navigation updated
+- [x] Phase 3+ features remain out of scope

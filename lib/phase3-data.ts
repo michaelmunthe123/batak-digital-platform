@@ -1,0 +1,236 @@
+import type {
+  GenealogyGraph,
+  KinshipRule,
+  RelationshipEdge,
+} from "@/lib/types";
+
+export const pilotGenealogyGraph: GenealogyGraph = {
+  dataset: {
+    id: "demo-genealogy",
+    slug: "demo-metodologi",
+    title: "Tarombo demo metodologi",
+    description:
+      "Dataset fiktif untuk menguji visualisasi, provenance, privasi, dan inferensi tanpa mengklaim silsilah keluarga nyata.",
+    visibility: "public",
+    methodologyNote:
+      "Semua nama pada dataset ini fiktif. Dataset ini sengaja tidak mewakili marga atau tarombo tertentu; ia hanya mendemonstrasikan bagaimana edge genealogis disimpan, diberi status, dan ditelusuri.",
+    sourceIds: [],
+    isDemo: true,
+  },
+  nodes: [
+    {
+      id: "demo-n1",
+      datasetSlug: "demo-metodologi",
+      label: "Generasi I — A",
+      generation: 0,
+      gender: "male",
+      livingStatus: "deceased",
+      visibility: "public",
+    },
+    {
+      id: "demo-n2",
+      datasetSlug: "demo-metodologi",
+      label: "Generasi II — B",
+      generation: 1,
+      gender: "male",
+      livingStatus: "deceased",
+      visibility: "public",
+    },
+    {
+      id: "demo-n3",
+      datasetSlug: "demo-metodologi",
+      label: "Generasi II — C",
+      generation: 1,
+      gender: "female",
+      livingStatus: "deceased",
+      visibility: "public",
+    },
+    {
+      id: "demo-n4",
+      datasetSlug: "demo-metodologi",
+      label: "Generasi III — D",
+      generation: 2,
+      gender: "female",
+      livingStatus: "unknown",
+      visibility: "public",
+    },
+    {
+      id: "demo-n5",
+      datasetSlug: "demo-metodologi",
+      label: "Pasangan B — E",
+      generation: 1,
+      gender: "female",
+      livingStatus: "deceased",
+      visibility: "public",
+    },
+  ],
+  edges: [
+    {
+      id: "demo-e1",
+      datasetSlug: "demo-metodologi",
+      sourceNodeId: "demo-n1",
+      targetNodeId: "demo-n2",
+      relation: "parent",
+      status: "supported",
+      sourceIds: [],
+      contextNote: "Edge demo; bukan klaim sejarah.",
+    },
+    {
+      id: "demo-e2",
+      datasetSlug: "demo-metodologi",
+      sourceNodeId: "demo-n1",
+      targetNodeId: "demo-n3",
+      relation: "parent",
+      status: "supported",
+      sourceIds: [],
+      contextNote: "Edge demo; bukan klaim sejarah.",
+    },
+    {
+      id: "demo-e3",
+      datasetSlug: "demo-metodologi",
+      sourceNodeId: "demo-n2",
+      targetNodeId: "demo-n4",
+      relation: "parent",
+      status: "supported",
+      sourceIds: [],
+      contextNote: "Edge demo; bukan klaim sejarah.",
+    },
+    {
+      id: "demo-e4",
+      datasetSlug: "demo-metodologi",
+      sourceNodeId: "demo-n2",
+      targetNodeId: "demo-n5",
+      relation: "spouse",
+      status: "supported",
+      sourceIds: [],
+      contextNote: "Edge demo; bukan klaim sejarah.",
+    },
+  ],
+};
+
+export const pilotKinshipRules: KinshipRule[] = [
+  {
+    id: "toba-mothers-brother",
+    culturalContext: "toba",
+    relationCode: "mothers_brother",
+    relationLabelId: "saudara laki-laki ibu",
+    term: "tulang",
+    explanation:
+      "Dalam sumber tata kelakuan Batak Toba, tulang dicontohkan sebagai sapaan untuk paman dari pihak ibu.",
+    sourceIds: ["tata-kelakuan-sumut"],
+    status: "supported",
+    caution:
+      "Pemakaian sapaan nyata tetap bergantung pada posisi generasi, perkawinan, dan konteks martutur keluarga.",
+  },
+  {
+    id: "toba-opposite-sex-sibling",
+    culturalContext: "toba",
+    relationCode: "opposite_sex_sibling",
+    relationLabelId: "saudara kandung lawan jenis",
+    term: "ito",
+    explanation:
+      "Sumber Kemendikbud mendokumentasikan ito sebagai istilah sapaan untuk saudara laki-laki/perempuan dari lawan jenis.",
+    sourceIds: ["peranan-umpasa-1986"],
+    status: "supported",
+    caution:
+      "Istilah kekerabatan Batak Toba lebih luas daripada dua rule pilot ini; calculator tidak boleh dianggap kamus partuturan lengkap.",
+  },
+  {
+    id: "karo-same-merga-role",
+    culturalContext: "karo",
+    relationCode: "same_merga_social_role",
+    relationLabelId: "kelompok satu merga dalam konteks Rakut Sitelu",
+    term: "senina",
+    explanation:
+      "Dokumentasi Kemendikbud tentang masyarakat Karo menjelaskan senina sebagai kelompok yang mempunyai merga yang sama dalam struktur Rakut Sitelu.",
+    sourceIds: ["permukiman-karo"],
+    status: "supported",
+    caution:
+      "Ini adalah role sosial-kekerabatan dalam konteks yang didokumentasikan, bukan bukti bahwa dua orang tertentu otomatis mempunyai kedekatan genealogis tertentu.",
+  },
+  {
+    id: "karo-wife-giver-role",
+    culturalContext: "karo",
+    relationCode: "wife_giver_group",
+    relationLabelId: "pihak keluarga pemberi istri",
+    term: "kalimbubu",
+    explanation:
+      "Dalam Rakut Sitelu, sumber institusional mendokumentasikan kalimbubu sebagai pihak keluarga pemberi istri.",
+    sourceIds: ["permukiman-karo"],
+    status: "supported",
+    caution:
+      "Penentuan role terhadap individu nyata memerlukan proses ertutur dan informasi keluarga yang cukup.",
+  },
+  {
+    id: "karo-wife_taker-role",
+    culturalContext: "karo",
+    relationCode: "wife_taker_group",
+    relationLabelId: "pihak keluarga pengambil istri",
+    term: "anak beru",
+    explanation:
+      "Dalam Rakut Sitelu, sumber institusional mendokumentasikan anak beru sebagai pihak keluarga pengambil istri.",
+    sourceIds: ["permukiman-karo"],
+    status: "supported",
+    caution:
+      "Penentuan role terhadap individu nyata memerlukan proses ertutur dan informasi keluarga yang cukup.",
+  },
+];
+
+export const pilotRelationshipEdges: RelationshipEdge[] = [
+  {
+    id: "rel-karo-rakut-sitelu",
+    sourceSlug: "karo",
+    targetSlug: "rakut-sitelu",
+    relationshipType: "uses_kinship_system",
+    label: "menggunakan sistem kekerabatan",
+    status: "supported",
+    sourceIds: ["permukiman-karo"],
+    contextNote: "Rakut Sitelu didokumentasikan sebagai struktur kekerabatan Karo.",
+  },
+  {
+    id: "rel-toba-dalihan-na-tolu",
+    sourceSlug: "toba",
+    targetSlug: "dalihan-na-tolu",
+    relationshipType: "uses_kinship_system",
+    label: "menggunakan sistem kekerabatan",
+    status: "supported",
+    sourceIds: ["tata-kelakuan-sumut"],
+    contextNote: "Sumber mendokumentasikan posisi hula-hula, dongan sabutuha, dan boru dalam partuturan Batak Toba.",
+  },
+  {
+    id: "rel-dalihan-tulang",
+    sourceSlug: "dalihan-na-tolu",
+    targetSlug: "tulang",
+    relationshipType: "contains_kinship_term",
+    label: "mencakup istilah kekerabatan",
+    status: "supported",
+    sourceIds: ["tata-kelakuan-sumut"],
+  },
+  {
+    id: "rel-rakut-senina",
+    sourceSlug: "rakut-sitelu",
+    targetSlug: "senina",
+    relationshipType: "contains_role",
+    label: "mencakup role",
+    status: "supported",
+    sourceIds: ["permukiman-karo"],
+  },
+  {
+    id: "rel-rakut-kalimbubu",
+    sourceSlug: "rakut-sitelu",
+    targetSlug: "kalimbubu",
+    relationshipType: "contains_role",
+    label: "mencakup role",
+    status: "supported",
+    sourceIds: ["permukiman-karo"],
+  },
+  {
+    id: "rel-rakut-anak-beru",
+    sourceSlug: "rakut-sitelu",
+    targetSlug: "anak-beru",
+    relationshipType: "contains_role",
+    label: "mencakup role",
+    status: "supported",
+    sourceIds: ["permukiman-karo"],
+  },
+];
