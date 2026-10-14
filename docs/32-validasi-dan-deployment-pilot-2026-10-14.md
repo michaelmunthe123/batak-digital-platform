@@ -38,8 +38,6 @@ Tanggal: 14 Oktober 2026. Ini adalah laporan deployment pilot, bukan pernyataan 
 | E2E production | 24/24 lolos, 12 skenario masing-masing desktop Chromium dan Pixel 7. |
 | E2E lokal final | 24/24 lolos terhadap `next build` + `next start`, tanpa retry. Startup build dan suite selesai dalam sekitar 57 detik. |
 | E2E lokal sebelum koreksi selector | 20/22 lolos. Dua kegagalan Phase 3 berasal dari selector ambigu lalu ekspektasi bahasa yang tidak cocok, bukan absennya jalur relasi. Suite production kemudian lolos setelah koreksi. |
-
-Percobaan berikutnya dengan development server sempat 23/24 karena navigasi terputus saat Fast Refresh. Konfigurasi final menggunakan server hasil build produksi untuk menghilangkan gangguan Hot Reload; suite lokal kemudian lolos seluruhnya.
 | SEO smoke | Robots dan sitemap HTTP 200, tidak merujuk localhost. |
 | AI nonaktif | POST assistant HTTP 503 terkontrol, confidence insufficient, retrieval unavailable, sumber kosong. Tidak ada generasi berbayar. |
 | Public smoke | Homepage/explore/adat/sources/profil marga memiliki heading/title; tidak ada browser exception pada skenario tersebut. |
@@ -48,6 +46,8 @@ Percobaan berikutnya dengan development server sempat 23/24 karena navigasi terp
 | Akses anonim | Form genealogy dan kinship mengarah ke login; halaman tidak dikenal memberi 404. Belum membuktikan RLS atau sesi pengguna nyata. |
 | npm audit runtime | 0 advisori dependency produksi saat diperiksa. |
 | npm audit keseluruhan | Tersisa 5 high dalam rantai lint: eslint-config-next → plugin Next → fast-glob → micromatch → braces. Bukan 5 bug aplikasi independen. |
+
+Percobaan berikutnya dengan development server sempat 23/24 karena navigasi terputus saat Fast Refresh. Konfigurasi final menggunakan server hasil build produksi untuk menghilangkan gangguan Hot Reload; suite lokal kemudian lolos seluruhnya.
 
 Jangan memakai `npm audit fix --force`: saran downgrade konfigurasi lint ke Next 14 tidak sesuai baseline Next 16. Advisori braces masih mencakup versi 3.0.3 yang tersedia saat diperiksa. Jangan mengekspos tooling development ke publik atau menerima pola glob arbitrer dari pengguna.
 
