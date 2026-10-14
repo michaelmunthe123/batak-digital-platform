@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -85,9 +86,9 @@ export default async function ClanProfile({
           <section>
             <h2 className="font-serif text-3xl font-semibold">Tools Phase 3</h2>
             <div className="mt-4 flex flex-wrap gap-3">
-              <a href="/tarombo" className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-semibold">Tarombo Visualizer</a>
-              <a href="/relations" className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-semibold">Relationship Explorer</a>
-              <a href="/partuturan" className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-semibold">Partuturan Calculator</a>
+              <Link href="/tarombo" className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-semibold">Tarombo Visualizer</Link>
+              <Link href="/relations" className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-semibold">Relationship Explorer</Link>
+              <Link href="/partuturan" className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-semibold">Partuturan Calculator</Link>
             </div>
           </section>
 

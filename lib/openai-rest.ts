@@ -1,3 +1,4 @@
+import "server-only";
 import {
   type AIUsage,
   type ModerationResult,
@@ -39,11 +40,11 @@ async function openAIRequest<T>(path: string, body: unknown): Promise<T> {
     },
     body: JSON.stringify(body),
     cache: "no-store",
+    signal: AbortSignal.timeout(30_000),
   });
 
   if (!response.ok) {
-    const detail = await response.text();
-    throw new Error(`OpenAI API ${response.status}: ${detail.slice(0, 500)}`);
+    throw new Error(`OpenAI API request failed (${response.status}).`);
   }
 
   return (await response.json()) as T;

@@ -1,5 +1,13 @@
 # Batak Digital Knowledge Platform
 
+## Live Website
+
+Explore the Batak Digital Knowledge Platform:
+
+**[Visit the Live Website](https://batak-digital-platform.vercel.app)**
+
+**Public pilot, not a fully integrated production release.** The site serves example knowledge and a fictional genealogy demonstration. Supabase, authentication, contributions, Storage, and AI are not enabled on this deployment. The public URL was verified on 14 October 2026. See the [implementation audit](docs/31-audit-kondisi-aktual-2026-10-13.md) for database and AI blockers.
+
 An interactive digital knowledge platform for exploring **Batak culture, clans, genealogy, customs, kinship, language, regions, and cultural heritage** through structured and source-aware information.
 
 > **Preserve the complexity, simplify the experience.**
@@ -317,7 +325,7 @@ The original development roadmap consists of six major phases.
 | Phase 4 | Community & Contribution | ✅ Complete |
 | Phase 5 | AI & Mature Platform | ✅ Complete |
 
-The project has completed its initial architectural roadmap.
+“Complete” in this roadmap means the source deliverables exist. It does not mean database migrations, RLS, authentication, Storage, or AI have passed integration testing.
 
 Current work focuses on:
 
@@ -357,7 +365,7 @@ batak-digital-platform/
 
 Before starting, install:
 
-- Node.js
+- Node.js 22 or 24 (deployment tested with Node.js 24)
 - npm
 - Git
 - VS Code
@@ -371,7 +379,7 @@ OpenAI API access is optional and only required for AI features.
 ### Install Dependencies
 
 ```bash
-npm install
+npm ci
 ```
 
 ---
@@ -385,6 +393,8 @@ Create:
 ```
 
 Use `.env.example` as the reference.
+
+Leave the Supabase values empty to explore pilot data locally. The interface labels this mode. Keep `AI_ENABLED=false` until database security, grounding, model access, and spending limits have been validated. Do not run migrations or the AI indexer merely to start the pilot.
 
 Never commit `.env.local` or any secret API key to the repository.
 
@@ -401,6 +411,8 @@ Open:
 ```text
 http://localhost:3000
 ```
+
+Development and production builds use Webpack because Turbopack's CSS worker failed on the audited Windows environment. For a local production run, use `npm run build`, then `npm start`.
 
 ---
 
@@ -426,9 +438,11 @@ npm run build
 For end-to-end testing:
 
 ```bash
-npx playwright install
+npx playwright install chromium
 npm run test:e2e
 ```
+
+Local E2E tests use a separate server on port 3100 and empty service credentials. They test pilot behavior, not database integration. Set `PLAYWRIGHT_BASE_URL` to an existing pilot deployment URL to run the same browser checks remotely.
 
 ---
 
@@ -477,9 +491,9 @@ Contributor activity scores represent editorial participation only and **do not 
 
 The application architecture and original Phase 0–5 roadmap have been implemented.
 
-The project is currently in the **local validation and content development stage**.
+The project has a **public pilot on Vercel**. Database-backed features remain blocked: the linked Supabase project was reported inactive and migration-list attempts timed out. Database security findings in the audit must be addressed before connecting sensitive data. GitHub-to-Vercel automatic deployment is not yet verified.
 
-Some integrations still require developer-side environment configuration before production deployment.
+AI is opt-in and currently unavailable on the public pilot. No live cultural answers, authentication flow, storage upload, or database access should be inferred from successful page rendering.
 
 ---
 

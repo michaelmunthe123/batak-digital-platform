@@ -36,7 +36,7 @@ export async function inviteContributor(formData: FormData) {
     userId = inviteResult.data.user.id;
   } else {
     const existing = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-    const user = existing.data?.users.find((candidate: any) => candidate.email?.toLowerCase() === email);
+    const user = existing.data?.users.find((candidate) => candidate.email?.toLowerCase() === email);
     if (!user) throw new Error(inviteResult.error?.message ?? "User invitation failed.");
     userId = user.id;
   }

@@ -4,11 +4,11 @@
   "private": true,
   "description": "Phase 5 AI and mature platform layer for the Batak Digital Knowledge Platform.",
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -42,6 +42,6 @@
     "supabase": "^2.120.0",
     "tailwindcss": "^4.1.0",
     "typescript": "^5.9.0",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.11"
   }
 }

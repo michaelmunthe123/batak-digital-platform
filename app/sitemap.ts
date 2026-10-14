@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { listPublishedEntities } from "@/lib/repository";
 import { hrefForEntity } from "@/lib/search-core";
+import { getSiteUrl } from "@/lib/site-url";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const base = getSiteUrl();
   const entities = await listPublishedEntities();
   const staticRoutes = [
     "",

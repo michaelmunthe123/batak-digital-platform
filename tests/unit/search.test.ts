@@ -13,7 +13,9 @@ describe("searchLocalEntities", () => {
     expect(results.some((item) => item.slug === "munthe")).toBe(true);
   });
 
-  it("mengembalikan array kosong untuk query kosong", () => {
-    expect(searchLocalEntities("   ", pilotEntities)).toEqual([]);
+  it("menampilkan direktori untuk query kosong tanpa mengarang entri", () => {
+    const results = searchLocalEntities("   ", pilotEntities);
+    expect(results.map((item) => item.slug).sort()).toEqual(pilotEntities.map((item) => item.slug).sort());
+    expect(searchLocalEntities("   ", [])).toEqual([]);
   });
 });

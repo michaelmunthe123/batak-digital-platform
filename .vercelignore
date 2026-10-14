@@ -1,0 +1,12 @@
+.env*
+!.env.example
+.git
+node_modules
+.next
+coverage
+playwright-report
+test-results
+*.tsbuildinfo
+*.log
+supabase/.temp
+.audit-tools

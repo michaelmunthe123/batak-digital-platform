@@ -9,7 +9,7 @@ function parsePositiveInteger(value: string | undefined, fallback: number) {
 
 export function getAIConfig() {
   return {
-    enabled: process.env.AI_ENABLED !== "false",
+    enabled: process.env.AI_ENABLED === "true",
     openAIKey: process.env.OPENAI_API_KEY,
     model: process.env.OPENAI_MODEL || DEFAULT_MODEL,
     embeddingModel:

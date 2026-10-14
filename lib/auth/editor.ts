@@ -30,8 +30,10 @@ export async function getEditorialState(): Promise<EditorialState> {
     .eq("id", user.id)
     .maybeSingle();
 
-  const role = profile?.role as "admin" | "editor" | "reviewer" | undefined;
-  if (!role) return { state: "forbidden", email: user.email };
+  const role = profile?.role;
+  if (role !== "admin" && role !== "editor" && role !== "reviewer") {
+    return { state: "forbidden", email: user.email };
+  }
 
   return {
     state: "authorized",

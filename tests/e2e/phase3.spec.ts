@@ -10,9 +10,9 @@ test("Phase 3 genealogy and kinship routes render", async ({ page }) => {
 
   await page.goto("/partuturan");
   await expect(page.getByRole("heading", { name: /Partuturan Calculator/i })).toBeVisible();
-  await expect(page.getByText("tulang")).toBeVisible();
+  await expect(page.getByText("tulang", { exact: true })).toBeVisible();
 
   await page.goto("/relations?from=karo&to=senina");
   await expect(page.getByRole("heading", { name: /Relationship Explorer/i })).toBeVisible();
-  await expect(page.getByText(/uses kinship system/i)).toBeVisible();
+  await expect(page.getByText(/menggunakan sistem kekerabatan/i)).toBeVisible();
 });

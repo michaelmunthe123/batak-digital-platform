@@ -10,7 +10,16 @@ import type {
   ContributorStats,
 } from "@/lib/community-types";
 
-function mapContribution(row: any): ContributionRow {
+// Database columns use snake_case; domain objects use camelCase.
+type SnakeCase<S extends string> = S extends `${infer First}${infer Rest}`
+  ? `${First extends Lowercase<First> ? First : `_${Lowercase<First>}`}${SnakeCase<Rest>}`
+  : S;
+type DatabaseRow<T> = { [K in keyof T as K extends string ? SnakeCase<K> : K]: T[K] };
+type ContributionDatabaseRow = DatabaseRow<ContributionRow> & { target?: { title: string } | null };
+type ReportDatabaseRow = DatabaseRow<ContentReportRow> & { entity?: { title: string } | null };
+type SourceDatabaseRow = DatabaseRow<ContributionSourceRow> & { source?: { title: string } | null };
+
+function mapContribution(row: ContributionDatabaseRow): ContributionRow {
   return {
     id: row.id,
     authorId: row.author_id,
@@ -69,7 +78,7 @@ export async function getContributionDetail(id: string) {
 
   return {
     contribution: mapContribution(contributionResult.data),
-    sources: (sourcesResult.data ?? []).map((row: any): ContributionSourceRow => ({
+    sources: (sourcesResult.data ?? []).map((row: SourceDatabaseRow): ContributionSourceRow => ({
       id: row.id,
       contributionId: row.contribution_id,
       sourceId: row.source_id,
@@ -80,7 +89,7 @@ export async function getContributionDetail(id: string) {
       note: row.note,
       createdAt: row.created_at,
     })),
-    messages: (messagesResult.data ?? []).map((row: any): ContributionMessageRow => ({
+    messages: (messagesResult.data ?? []).map((row: DatabaseRow<ContributionMessageRow>): ContributionMessageRow => ({
       id: row.id,
       contributionId: row.contribution_id,
       authorId: row.author_id,
@@ -89,7 +98,7 @@ export async function getContributionDetail(id: string) {
       isInternal: row.is_internal,
       createdAt: row.created_at,
     })),
-    audit: (auditResult.data ?? []).map((row: any): ContributionAuditRow => ({
+    audit: (auditResult.data ?? []).map((row: DatabaseRow<ContributionAuditRow>): ContributionAuditRow => ({
       id: Number(row.id),
       contributionId: row.contribution_id,
       action: row.action,
@@ -120,7 +129,7 @@ export async function getOwnNotifications(userId: string): Promise<CommunityNoti
     .eq("user_id", userId)
     .order("created_at", { ascending: false })
     .limit(50);
-  return (data ?? []).map((row: any) => ({
+  return (data ?? []).map((row: DatabaseRow<CommunityNotificationRow>) => ({
     id: row.id,
     kind: row.kind,
     title: row.title,
@@ -176,7 +185,7 @@ export async function getOwnReports(userId: string): Promise<ContentReportRow[]>
   return (data ?? []).map(mapReport);
 }
 
-function mapReport(row: any): ContentReportRow {
+function mapReport(row: ReportDatabaseRow): ContentReportRow {
   return {
     id: row.id,
     reporterId: row.reporter_id,
@@ -218,8 +227,8 @@ export async function getCommunityModerationSnapshot() {
   return {
     queue: queueResult.data ?? [],
     reports: (reportsResult.data ?? []).map(mapReport),
-    memberships: (membershipsResult.data ?? []).map((row: any) => {
-      const profile = (profilesResult.data ?? []).find((item: any) => item.user_id === row.user_id);
+    memberships: (membershipsResult.data ?? []).map((row) => {
+      const profile = (profilesResult.data ?? []).find((item) => item.user_id === row.user_id);
       return { ...row, display_name: profile?.display_name ?? null, slug: profile?.slug ?? null, is_public: Boolean(profile?.is_public) };
     }),
   };
